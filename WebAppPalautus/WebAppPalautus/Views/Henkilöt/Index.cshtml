@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WebAppPalautus.Models.Henkilot>
+@{
+    ViewBag.Title = "Index";
+}<h2>Henkilöt</h2>
+<table =" class= table table-hover">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Sukunimi</th>
+            <th>Osoite</th>
+            <th>Sähköposti</th>
+            <th>Muokkaa</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (WebAppPalautus.Models.Henkilot henk in Model)
+        {
+            <tr>
+                <td> @henk.Etunimi</td>
+                <td> @henk.Sukunimi</td>
+                <td> @henk.Osoite</td>
+                <td> @henk.Sahkoposti</td>
+                <td><button class="bg-success" onclick="ilmoitaIIDEE('@henk.Etunimi')">Muokkaa</button></td>
+            </tr>
+
+
+        }
+    </tbody>
+</table>
+
+
+

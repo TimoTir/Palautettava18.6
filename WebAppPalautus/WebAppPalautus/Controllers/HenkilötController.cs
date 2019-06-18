@@ -12,10 +12,17 @@ namespace WebAppPalautus.Controllers
         // GET: Henkilöt
         public ActionResult Index()
         {
-            TilausDBEntities db = new TilausDBEntities();
-            List<Henkilot> model = db .Henkilot.ToList();
-            db.Dispose();
-            return View(model);
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                TilausDBEntities db = new TilausDBEntities();
+                List<Henkilot> model = db.Henkilot.ToList();
+                db.Dispose();
+                return View(model);
+            }
         }
     }
 }

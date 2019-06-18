@@ -132,6 +132,7 @@
     <Compile Include="Controllers\HenkilötController.cs" />
     <Compile Include="Controllers\PostitoimipaikatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TuotteetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -145,6 +146,9 @@
       <DependentUpon>TilausDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Postitoimipaikat.cs">
+      <DependentUpon>TilausDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>TilausDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -231,6 +235,10 @@
     <Content Include="Views\Asiakkaat\Index.cshtml" />
     <Content Include="Views\Asiakkaat\Edit.cshtml" />
     <Content Include="Views\Asiakkaat\Create.cshtml" />
+    <Content Include="Views\Asiakkaat\Login.cshtml" />
+    <Content Include="Views\Home\LogOut.cshtml" />
+    <Content Include="Views\Asiakkaat\Delete.cshtml" />
+    <Content Include="Views\Tuotteet\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

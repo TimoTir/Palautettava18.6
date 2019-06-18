@@ -12,53 +12,52 @@ namespace WebAppPalautus.Controllers
 
         public ActionResult Index()
         {
-            //if (Session["UserName"] == null)
-            //{
-            //    ViewBag.LoggedStatus = "Out";
-            //    return RedirectToAction("login", "home");
-            //}
-            //else
+            if (Session["UserName"] == null)
             {
-                //ViewBag.LoggedStatus = "In";
+                ViewBag.LoggedStatus = "Out";
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.LoggedStatus = "In";
                 return View();
             }
         }
 
         public ActionResult About()
         {
-            //ViewBag.Message = "About";
+            ViewBag.Message = "About";
 
-            //if (Session["UserName"] == null)
-            //{
-            //    ViewBag.LoggedStatus = "Out";
-            //    return RedirectToAction("login", "home");
-            //}
-            //else
+            if (Session["UserName"] == null)
             {
-                //ViewBag.LoggedStatus = "In";
+                ViewBag.LoggedStatus = "Out";
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.LoggedStatus = "In";
 
-                //ViewBag.Message = "Yhtiön perustietojen kuvailua";
-                //ViewBag.Herja = "Ole huolellinen, niin ei tule virhettä :D";
+
 
                 return View();
 
             }
         }
-    
+
 
         public ActionResult Contact()
         {
-            //ViewBag.Message = "contact.";
+            ViewBag.Message = "contact.";
 
-            //if (Session["UserName"] == null)
-            //{
-            //    ViewBag.LoggedStatus = "Out";
-            //    return RedirectToAction("login", "home");
-            //}
-            //else
+            if (Session["UserName"] == null)
             {
-                //ViewBag.LoggedStatus = "In";
-                //ViewBag.Message = "Contact";
+               ViewBag.LoggedStatus = "Out";
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.LoggedStatus = "In";
+                ViewBag.Message = "Contact";
 
                 return View();
             }
@@ -67,26 +66,35 @@ namespace WebAppPalautus.Controllers
         {
             return View();
         }
-            //[HttpPost]
-            //public ActionResult Authorize(Logins LoginModel)
-            //{
-            //    TilausDBEntities db = new TilausDBEntities();
-            //    //Haetaan käyttäjän/Loginin tiedot annetuilla tunnustiedoilla tietokannasta LINQ -kyselyllä
-            //    var LoggedUser = db.Logins.SingleOrDefault(x => x.UserName == LoginModel.UserName && x.PassWord == LoginModel.PassWord);
-            //    if (LoggedUser != null)
-            //    {
-            //        ViewBag.LoginMessage = "Successfull login";
-            //        ViewBag.LoggedStatus = "In";
-            //        Session["UserName"] = LoggedUser.UserName;
-            //        return RedirectToAction("Index", "Home"); //Tässä määritellään mihin onnistunut kirjautuminen johtaa --> Home/Index
-            //    }
-            //    else
-            //    {
-            //        ViewBag.LoginMessage = "Login unsuccessfull";
-            //        ViewBag.LoggedStatus = "Out";
-            //        LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
-            //        return View("Login", LoginModel);
-            //    }
+        [HttpPost]
+        public ActionResult Authorize(Logins LoginModel)
+        {
+            TilausDBEntities db = new TilausDBEntities();
+
+            var LoggedUser = db.Logins.SingleOrDefault(x => x.UserName == LoginModel.UserName && x.PassWord == LoginModel.PassWord);
+            if (LoggedUser != null)
+            {
+                ViewBag.LoginMessage = "Successfull login";
+                ViewBag.LoggedStatus = "In";
+                Session["UserName"] = LoggedUser.UserName;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.LoginMessage = "Login unsuccessfull";
+                ViewBag.LoggedStatus = "Out";
+                LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
+                return View("Login", LoginModel);
+            }
+
+
+        }
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+            ViewBag.LoggedStatus = "Out";
+            return RedirectToAction("Index", "Home"); //Uloskirjautumisen jälkeen pääsivulle
+        }
 
     }
 }

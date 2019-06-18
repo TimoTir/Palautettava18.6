@@ -24,7 +24,8 @@ namespace WebAppPalautus.Models
         public string Nimi { get; set; }
         public string Osoite { get; set; }
         public string Postinumero { get; set; }
-        public string Postitoimipaikka { get; set; }
+    
+        public virtual Postitoimipaikat Postitoimipaikat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tilaukset> Tilaukset { get; set; }
     }
